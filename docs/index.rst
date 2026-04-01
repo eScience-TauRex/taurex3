@@ -5,6 +5,7 @@
 
     Home <self>
     User Guide <user/index>
+    Examples <examples/index>
     Development Guide <devel/index>
     Plugin Catalogue <plugins_cata>
     Full API <api/modules>
