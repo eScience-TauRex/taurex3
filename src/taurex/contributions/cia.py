@@ -10,6 +10,14 @@ from taurex.output import OutputGroup
 
 from .contribution import Contribution
 
+
+# CIA tables are stored as absorption coefficients in cm^-1 amagat^-2.
+# TauRex integrates using number density in m^-3 and path length in m, so
+# convert once here to an effective m^5 coefficient before the density^2
+# path integral.
+AMAGAT_NUMBER_DENSITY = 2.6867805e25
+CIA_CGS_TO_SI = 100.0 / AMAGAT_NUMBER_DENSITY**2
+
 contribute_cia: t.Callable[
     [
         int,
@@ -241,7 +249,9 @@ class CIAContribution(Contribution):
 
             for idx_layer, temperature in enumerate(model.temperatureProfile):
                 _cia_xsec = cia.cia(temperature, wngrid)
-                sigma_cia[idx_layer] += _cia_xsec * cia_factor[idx_layer]
+                sigma_cia[idx_layer] += (
+                    _cia_xsec * cia_factor[idx_layer] * CIA_CGS_TO_SI
+                )
             self.sigma_xsec = sigma_cia
             yield pair_name, sigma_cia
 

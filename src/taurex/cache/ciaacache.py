@@ -68,22 +68,33 @@ class CIACache(Singleton):
 
         if key in self.cia_dict:
             return self.cia_dict[key]
-        else:
-            # Try a load of the cia
-            self.load_cia(pair_filter=[key])
-            # If we have it after a load then good job boys
-            if key in self.cia_dict:
-                return self.cia_dict[key]
-            else:
-                # Otherwise throw an error
-                self.log.error("CIA for pair %s could not be loaded", key)
-                self.log.error(
-                    "It could not be found in the local dictionary " " %s",
-                    list(self.cia_dict.keys()),
-                )
-                self.log.error("Or paths %s", self._cia_path)
-                self.log.error("Try loading it manually/ putting it in a path")
-                raise Exception("cia could notn be loaded")
+
+        # Case-insensitive check before attempting a load
+        key_upper = key.upper()
+        for k, v in self.cia_dict.items():
+            if k.upper() == key_upper:
+                return v
+
+        # Try a load of the cia
+        self.load_cia(pair_filter=[key])
+        # If we have it after a load then good job boys
+        if key in self.cia_dict:
+            return self.cia_dict[key]
+
+        # Case-insensitive check after load
+        for k, v in self.cia_dict.items():
+            if k.upper() == key_upper:
+                return v
+
+        # Otherwise throw an error
+        self.log.error("CIA for pair %s could not be loaded", key)
+        self.log.error(
+            "It could not be found in the local dictionary " " %s",
+            list(self.cia_dict.keys()),
+        )
+        self.log.error("Or paths %s", self._cia_path)
+        self.log.error("Try loading it manually/ putting it in a path")
+        raise Exception("cia could not be loaded")
 
     def add_cia(self, cia: CIA, pair_filter: t.Optional[t.List[str]] = None):
         """
@@ -152,14 +163,21 @@ class CIACache(Singleton):
         self.log.debug("Glob list: %s", glob_path)
         self.log.debug("File list FOR CIA %s", file_list)
 
+        # Build a mapping upper→original so we can restore the requested casing
+        pair_filter_map = (
+            {p.upper(): p for p in pair_filter} if pair_filter is not None else None
+        )
+
         for files in file_list:
             pairname = Path(files).stem.split("_")[0]
 
             self.log.debug("pairname found %s", pairname)
 
-            if pair_filter is not None:
-                if pairname not in pair_filter:
+            if pair_filter_map is not None:
+                if pairname.upper() not in pair_filter_map:
                     continue
+                # Use the requested casing so pairOne/pairTwo match the chemistry
+                pairname = pair_filter_map[pairname.upper()]
             op = PickleCIA(files, pairname)
             self.add_cia(op)
 
@@ -174,9 +192,10 @@ class CIACache(Singleton):
 
             pairname = Path(files).stem.split("_")[0]
 
-            if pair_filter is not None:
-                if pairname not in pair_filter:
+            if pair_filter_map is not None:
+                if pairname.upper() not in pair_filter_map:
                     continue
+                pairname = pair_filter_map[pairname.upper()]
             op = HitranCIA(files)
             self.add_cia(op)
 

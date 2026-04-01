@@ -12,3 +12,7 @@ __pycache__/
 .vscode
 .ipynb_checkpoints
 scratch/
+
+examples/phoenix_data/
+examples/taurex_starter_data/
+.venv/
