@@ -149,6 +149,16 @@ def build_emission_model(
 
     context = build_base_components(download=download)
     selected_temperature = temperature_profile or context["iso_t"]
+    selected_temperature.initialize_profile(
+        planet=context["planet"],
+        nlayers=context["press"].nLayers,
+        pressure_profile=context["press"].profile,
+    )
+    context["chemistry"].initialize_chemistry(
+        nlayers=context["press"].nLayers,
+        temperature_profile=selected_temperature.profile,
+        pressure_profile=context["press"].profile,
+    )
     model = EmissionModel(
         planet=context["planet"],
         temperature_profile=selected_temperature,
