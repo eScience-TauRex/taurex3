@@ -69,7 +69,7 @@ def ensure_opacity_data(download: bool = False) -> None:
     CIACache().set_cia_path(str(CIA_DIR))
 
 
-def build_base_components(download: bool = False) -> dict[str, object]:
+def build_base_components(download: bool = False, nlayers: int = 100) -> dict[str, object]:
     ensure_opacity_data(download=download)
 
     from taurex.chemistry import ConstantGas, TaurexChemistry
@@ -79,7 +79,7 @@ def build_base_components(download: bool = False) -> dict[str, object]:
     from taurex.temperature import Isothermal
 
     iso_t = Isothermal(T=2000.0)
-    press = SimplePressureProfile(nlayers=100, atm_min_pressure=1e-5, atm_max_pressure=1e5)
+    press = SimplePressureProfile(nlayers=nlayers, atm_min_pressure=1e-5, atm_max_pressure=1e5)
     chemistry = TaurexChemistry(fill_gases=["H2", "He"], ratio=0.1756)
     chemistry.addGas(ConstantGas(molecule_name="H2O", mix_ratio=1e-3))
     chemistry.addGas(ConstantGas(molecule_name="CH4", mix_ratio=1e-4))
@@ -115,11 +115,12 @@ def build_transmission_model(
     include_rayleigh: bool = False,
     clouds=None,
     download: bool = False,
+    nlayers: int = 100,
 ) -> dict[str, object]:
     from taurex.contributions import AbsorptionContribution, CIAContribution, RayleighContribution
     from taurex.model import TransmissionModel
 
-    context = build_base_components(download=download)
+    context = build_base_components(download=download, nlayers=nlayers)
     model = TransmissionModel(
         planet=context["planet"],
         temperature_profile=context["iso_t"],
@@ -143,11 +144,12 @@ def build_emission_model(
     include_cia: bool = True,
     include_rayleigh: bool = True,
     download: bool = False,
+    nlayers: int = 100,
 ) -> dict[str, object]:
     from taurex.contributions import AbsorptionContribution, CIAContribution, RayleighContribution
     from taurex.model import EmissionModel
 
-    context = build_base_components(download=download)
+    context = build_base_components(download=download, nlayers=nlayers)
     selected_temperature = temperature_profile or context["iso_t"]
     selected_temperature.initialize_profile(
         planet=context["planet"],

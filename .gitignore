@@ -13,3 +13,4 @@ __pycache__/
 .ipynb_checkpoints
 scratch/
 /examples/tmp/
+.venv/
