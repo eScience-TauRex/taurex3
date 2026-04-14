@@ -14,3 +14,4 @@ __pycache__/
 scratch/
 /examples/tmp/
 .venv/
+.docs-preview/
