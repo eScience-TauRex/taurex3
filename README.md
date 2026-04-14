@@ -6,6 +6,7 @@
 [![License](https://img.shields.io/pypi/l/taurex)][license]
 
 [![Read the documentation at https://taurex3.readthedocs.io/](https://img.shields.io/readthedocs/taurex3/latest.svg?label=Read%20the%20Docs)][read the docs]
+[![docs (dev)](https://img.shields.io/badge/docs-%28dev%29-4f6d8a?style=flat-square)][dev-docs]
 [![Tests](https://github.com/ucl-exoplanets/taurex3/workflows/Tests/badge.svg)][tests]
 [![Codecov](https://codecov.io/gh/ahmed-f-alrefaie/taurex3/branch/main/graph/badge.svg)][codecov]
 
@@ -16,11 +17,11 @@
 [status]: https://pypi.org/project/taurex/
 [python version]: https://pypi.org/project/taurex
 [read the docs]: https://taurex3.readthedocs.io/
+[dev-docs]: https://escience-taurex.github.io/taurex3/
 [tests]: https://github.com/ucl-exoplanets/taurex3/actions?workflow=Tests
 [codecov]: https://app.codecov.io/gh/ucl-exoplanets/taurex3
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
-
 
 ## Installation
 
