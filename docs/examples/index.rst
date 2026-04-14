@@ -1,10 +1,11 @@
 .. _Examples:
 
-========
-Examples
-========
+=================
+Notebook Examples
+=================
 
-This section contains runnable notebook examples for TauREx.
+These runnable notebook examples are also grouped under
+:ref:`practical_examples`, alongside the command-line quickstart for new users.
 Each notebook can be viewed in the documentation and run locally in Jupyter.
 The notebook source files live in ``examples/notebooks`` and are referenced here for the docs build.
 
