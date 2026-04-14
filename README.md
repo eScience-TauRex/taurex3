@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/pypi/l/taurex)][license]
 
 [![Read the documentation at https://taurex3.readthedocs.io/](https://img.shields.io/readthedocs/taurex3/latest.svg?label=Read%20the%20Docs)][read the docs]
-[![Tests](https://github.com/ahmed-f-alrefaie/taurex3/workflows/Tests/badge.svg)][tests]
+[![Tests](https://github.com/ucl-exoplanets/taurex3/workflows/Tests/badge.svg)][tests]
 [![Codecov](https://codecov.io/gh/ahmed-f-alrefaie/taurex3/branch/main/graph/badge.svg)][codecov]
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
