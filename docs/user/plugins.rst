@@ -29,6 +29,11 @@ Using Plugins
     ``spectra_w_offsets`` and ``spectra_instr`` observation types documented in
     :ref:`userobservation`.
 
+    The former ``taurex-PCQ`` plugin is also now integrated into TauREx. Its
+    precomputed-grid cloud contribution is available as the built-in
+    ``PyMieScattGridExtinction`` model contribution documented in
+    :ref:`usermodel`.
+
 Consult each plugins documentation for installation and usage. Generally TauREx
 searches for entry points in ``taurex.plugins`` and adds each component into the
 correct point in the pipeline
@@ -36,7 +41,8 @@ correct point in the pipeline
 Some functionality that originally shipped as standalone plugins has since been
 promoted into the main TauREx codebase. At the moment this includes the
 instrument-systematics observation helpers and the multimodel composite forward
-models. Those features no longer require a separate plugin installation.
+models, plus the PCQ precomputed-grid Mie cloud contribution. Those features no
+longer require a separate plugin installation.
 
 Lets take chemistry for example. Assuming a fresh install,
 we can see what is available to use in TauREx 3 by writing in the command prompt::
