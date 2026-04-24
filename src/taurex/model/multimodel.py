@@ -555,8 +555,8 @@ class MultiTransitModel(ForwardModel):
         model = super().write(output)
         self._planet.write(model)
         self._star.write(model)
-        for index, sub_model in enumerate(self._sub_models, start=1):
-            region_group = model.create_group(f"region_{index}")
+        for index, sub_model in enumerate(self._sub_models):
+            region_group = model.create_group(f"region+{index}")
             sub_model.chemistry.write(region_group)
             sub_model.temperature.write(region_group)
             sub_model.pressure.write(region_group)
@@ -564,7 +564,7 @@ class MultiTransitModel(ForwardModel):
 
     @classmethod
     def input_keywords(cls) -> t.Tuple[str, ...]:
-        return ("multitransit", "multi_transit_internal")
+        return ("multitransit",)
 
 
 class MultiEclipseModel(MultiTransitModel):
@@ -589,7 +589,7 @@ class MultiEclipseModel(MultiTransitModel):
 
     @classmethod
     def input_keywords(cls) -> t.Tuple[str, ...]:
-        return ("multieclipse", "multi_eclipse_internal")
+        return ("multieclipse",)
 
 
 class EmissionModelRadiusScale(EmissionModel):
@@ -823,7 +823,7 @@ class MultiDirectImModel(MultiTransitModel):
 
     @classmethod
     def input_keywords(cls) -> t.Tuple[str, ...]:
-        return ("multidirectimage", "multi_directimage_internal")
+        return ("multidirectimage",)
 
 
 class DirectImageRadiusScaleModel(EmissionModelRadiusScale):
