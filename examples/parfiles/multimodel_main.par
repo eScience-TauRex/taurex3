@@ -37,18 +37,22 @@ radius = 1.16
 
 [Model]
 model_type = multi_transit
-parfiles = examples/parfiles/multimodel_day.par,examples/parfiles/multimodel_night.par
-fractions = 0.65,0.35
+parfiles = examples/parfiles/multimodel_east.par,examples/parfiles/multimodel_west.par
+fractions = 0.65,
 
 [Observation]
 observed_spectrum = examples/parfiles/multimodel_observation.dat
 
 [Optimizer]
 optimizer = nestle
-num_live_points = 150
+num_live_points = 300
 method = multi
 
 [Fitting]
+
+fr_1:fit = True
+fr_1:bounds = 0.0, 1.0
+
 planet_radius:fit = True
 planet_radius:bounds = 1.0, 1.6
 
@@ -61,3 +65,6 @@ m1_T:fit = True
 m1_T:bounds = 1000, 2500
 m2_T:fit = True
 m2_T:bounds = 1000, 2500
+
+m2_clouds_pressure:fit = True
+m2_clouds_pressure:bounds = 1e3,1e-2

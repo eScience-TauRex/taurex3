@@ -15,3 +15,6 @@ T = 1200
 model_type = transmission
 
     [[Absorption]]
+
+    [[SimpleClouds]]
+    clouds_pressure = 5e2
